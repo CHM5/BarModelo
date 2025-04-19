@@ -1,7 +1,7 @@
 // URL pública de tu Google Sheet convertida en JSON (te explico más abajo cómo hacer esto)
-const sheetID = 'TU-ID-DE-HOJA';
+const sheetID = '1bHOgSjbDydp69BeUS0Ln9JFke6Y2U0SGcwahUeAPAuc';
 const sheetName = 'Hoja1'; // El nombre de tu pestaña en Sheets
-const apiKey = 'TU-API-KEY-DE-GOOGLE'; 
+const apiKey = 'AIzaSyDehY-9HbHf7Ngj0OZCHr21Txs_TEL-gHg'; 
 
 const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/${sheetName}?key=${apiKey}`;
 
