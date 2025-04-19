@@ -3,30 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Menú del Restaurante</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Menú - At All Times</title>
 </head>
 <body>
+  <h1>Menú del Restaurante</h1>
+  <div id="menu"></div>
 
-  <header>
-    <h1>Restaurante [Nombre]</h1>
-  </header>
+  <script>
+    const API_KEY = 'AQUÍ_TU_API_KEY';
+    const SHEET_ID = 'AQUÍ_TU_SHEET_ID';
+    const SHEET_NAME = 'Nombre_de_la_hoja'; // Ej: Hoja1
 
-  <main id="menu">
-    <h2>Entradas</h2>
-    <div id="entradas"></div>
+    async function cargarMenu() {
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
 
-    <h2>Platos Principales</h2>
-    <div id="platos"></div>
+      const response = await fetch(url);
+      const data = await response.json();
+      const menuDiv = document.getElementById('menu');
 
-    <h2>Postres</h2>
-    <div id="postres"></div>
-  </main>
+      const items = data.values.slice(1); // Saltear la primera fila (títulos)
 
-  <footer>
-    <p>¡Gracias por visitarnos!</p>
-  </footer>
+      items.forEach(fila => {
+        const [nombre, descripcion, precio] = fila;
+        const itemHTML = `
+          <div style="margin-bottom: 15px;">
+            <h3>${nombre}</h3>
+            <p>${descripcion}</p>
+            <strong>Precio: ${precio}</strong>
+          </div>
+        `;
+        menuDiv.innerHTML += itemHTML;
+      });
+    }
 
-  <script src="script.js"></script>
+    cargarMenu();
+  </script>
 </body>
 </html>
